@@ -26,5 +26,16 @@ long long current_time(void)
 
 int ft_isnumber(char *number)
 {
-    
+    int i;
+
+    i = 0;
+    if (number[i] == '-')
+        return (0);
+    while(number[i])
+    {
+        if (!ft_isdigit(number[i]))
+            return(0);
+        i++;
+    }
+    return(1);
 }
