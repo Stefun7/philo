@@ -80,14 +80,15 @@ void    routine(void *this_philo)
         }
         one_philo->last_meal = current_time();
         printf("Philosopher %d is eating.\n", one_philo->number);
-        usleep(table); // Simulate eating
+        usleep(one_philo->table->tte * 1000LL); // Simulate eating
 
         pthread_mutex_unlock(one_philo->r_fork);
         pthread_mutex_unlock(one_philo->l_fork);
         printf("Philosopher %d put down the forks and is sleeping\n", one_philo->number);
-        usleep(1000000);  // Simulate sleeping
+        usleep(one_philo->table->tts * 1000LL);  // Simulate sleeping
         
         printf("Philosopher %d is thinking...\n", one_philo->number);
+        usleep(1000);
     }
     return;
 }

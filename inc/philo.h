@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Libft/libft.h"
+#include "../Libft/inc/libft.h"
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/time.h>
@@ -34,6 +34,7 @@ typedef struct s_philosopher
     pthread_t thread;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
+    t_table *table;
 }   t_philosopher;
 
 // utils

@@ -23,3 +23,8 @@ long long current_time(void)
    sec_since_last = (long long) (time.tv_usec / 1000);
    return(sec_since_1970 + sec_since_last);
 }
+
+int ft_isnumber(char *number)
+{
+    
+}

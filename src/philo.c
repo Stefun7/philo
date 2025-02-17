@@ -17,7 +17,7 @@ void    init_table(char **av, t_table *table)
     //don't forget to verify the args (like what happens if they're are < 0)
     int nbr;
 
-    table->philo_nbr = av[1];
+    table->philo_nbr = ft_atoi(av[1]);
     table->ttd = av[2];
     table->tte = av[3];
     table->tts = av[4];
@@ -28,16 +28,17 @@ void    init_table(char **av, t_table *table)
     table->philos = malloc(sizeof(t_philosopher) * table->philo_nbr);
     table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nbr);
     if (!table->philos || !table->forks)
-        exit("malloc error");
+        exit("malloc error"); //not correct, need an int in exit
     nbr = -1;
     while (++nbr < table->philo_nbr)
         pthread_mutex_init(&table->forks[nbr], NULL);
     nbr = -1;
     while (++nbr < table->philo_nbr)
     {
-        table->philos->number = nbr + 1;
-        table->philos->l_fork = &table->forks[nbr];
-        table->philos->r_fork = &table->forks[(nbr + 1) % table->philo_nbr]; //philo_nbr is for the last philo to get the right r_fork
+        table->philos[nbr].number = nbr + 1;
+        table->philos[nbr].table = table;
+        table->philos[nbr].l_fork = &table->forks[nbr];
+        table->philos[nbr].r_fork = &table->forks[(nbr + 1) % table->philo_nbr]; //philo_nbr is for the last philo to get the right r_fork
     }
     return;
 }
@@ -47,10 +48,10 @@ int main(int ac, char **av)
     t_table table;
     int i;
 
-    i = 0;
+    i = 1;
     while(av[i])
     {
-        if(!ft_isdigit(av[i]))
+        if(!ft_isnumber(av[i]))
             return(1);
         i++;
     }
