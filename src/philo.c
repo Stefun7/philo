@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:07 by stephen           #+#    #+#             */
-/*   Updated: 2025/02/11 17:41:33 by stephen          ###   ########.fr       */
+/*   Updated: 2025/02/18 17:54:25 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 void    init_table(char **av, t_table *table)
 {
-    //don't forget to verify the args (like what happens if they're are < 0)
     int nbr;
 
     table->philo_nbr = ft_atoi(av[1]);
-    table->ttd = av[2];
-    table->tte = av[3];
-    table->tts = av[4];
+    table->ttd = ft_atoi(av[2]);
+    table->tte = ft_atoi(av[3]);
+    table->tts = ft_atoi(av[4]);
     if(av[5])
         table->time_must_eat = av[5];
     else
-        table->time_must_eat = -1;
+        table->time_must_eat = NOT_MENTIOENNED;
     table->philos = malloc(sizeof(t_philosopher) * table->philo_nbr);
     table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nbr);
     if (!table->philos || !table->forks)
@@ -51,12 +50,12 @@ int main(int ac, char **av)
     i = 1;
     while(av[i])
     {
-        if(!ft_isnumber(av[i]))
+        if(!valid_number(av[i]))
             return(1);
         i++;
     }
     if(ac != 5 && ac != 6)
-        return(1);
+        return(1);          //exit message needed ?
     init_table(av, &table);
     start_dinner(&table);
     return(0);

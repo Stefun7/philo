@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 11:44:51 by stephen           #+#    #+#             */
-/*   Updated: 2025/02/13 15:37:37 by stephen          ###   ########.fr       */
+/*   Updated: 2025/02/24 11:01:02 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void    check_if_death(void *the_table)
         while(i < table->philo_nbr)
         {
             now = current_time();
-            if (now - table->philos[i].last_meal > table->time_must_eat)
+            if ((table->time_must_eat != NOT_MENTIOENNED) && (now - table->philos[i].last_meal > table->time_must_eat))
             {
                 printf("Philosopher number %d died at %lld ms\n", table->philos[i].number, now);
                 return(NULL);
             }
             i++;
         }
-        usleep(1000);  // avoid CPU overuse ??
+        usleep(1000); // avoid CPU overuse ??
     }
 }
 

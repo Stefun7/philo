@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/02/12 11:18:07 by stephen          ###   ########.fr       */
+/*   Updated: 2025/02/18 17:49:58 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long long current_time(void)
    return(sec_since_1970 + sec_since_last);
 }
 
-int ft_isnumber(char *number)
+int valid_number(char *number)
 {
     int i;
 

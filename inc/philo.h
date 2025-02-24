@@ -6,14 +6,18 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/02/12 11:19:57 by stephen          ###   ########.fr       */
+/*   Updated: 2025/02/18 17:57:36 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Libft/inc/libft.h"
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/time.h>
+#ifndef PHILO_H
+# define PHILO_H
+# include "../Libft/inc/libft.h"
+# include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
+
+# define NOT_MENTIOENNED -1
 
 typedef struct s_table
 {
@@ -39,3 +43,5 @@ typedef struct s_philosopher
 
 // utils
 long long current_time(void);
+
+#endif
