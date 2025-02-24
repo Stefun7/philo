@@ -16,8 +16,13 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+#include <limits.h>
 
-# define NOT_MENTIOENNED -1
+# define NOT_MENTIONNED INT_MIN
+# define THREAD_CREATION_FAILURE INT_MAX
+# define MALLOC_FAILURE 2
+# define DEATH 0
+# define ALIVE 1
 
 typedef struct s_table
 {
@@ -28,13 +33,15 @@ typedef struct s_table
     int tte;
     int tts;
     int time_must_eat;
+    int smn_died;
+    pthread_mutex_t death_mutex;
 }   t_table;
 
 typedef struct s_philosopher
 {
     int number;
     long long last_meal;
-    int state_e_s_t;
+    int times_left_to_eat;
     pthread_t thread;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;

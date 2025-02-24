@@ -29,8 +29,6 @@ int valid_number(char *number)
     int i;
 
     i = 0;
-    if (number[i] == '-')
-        return (0);
     while(number[i])
     {
         if (!ft_isdigit(number[i]))

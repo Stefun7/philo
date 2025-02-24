@@ -25,11 +25,15 @@ void    check_if_death(void *the_table)
         while(i < table->philo_nbr)
         {
             now = current_time();
-            if ((table->time_must_eat != NOT_MENTIOENNED) && (now - table->philos[i].last_meal > table->time_must_eat))
+            pthread_mutex_lock(&table->death_mutex);
+            if (now - table->philos[i].last_meal > table->ttd)
             {
                 printf("Philosopher number %d died at %lld ms\n", table->philos[i].number, now);
-                return(NULL);
+                table->smn_died = 1;
+                pthread_mutex_unlock(&table->death_mutex);
+                return;
             }
+            pthread_mutex_unlock(&table->death_mutex);
             i++;
         }
         usleep(1000); // avoid CPU overuse ??
@@ -39,21 +43,24 @@ void    check_if_death(void *the_table)
 void    start_dinner(t_table *table)
 {
     int i;
-    pthread_t monitoring_death;
+    pthread_t monitor_death;
 
     i = 0;
     while(i < table->philo_nbr)
     {
-        pthread_create(&table->philos[i].thread, NULL, routine, &table->philos[i]);
+        if(pthread_create(&table->philos[i].thread, NULL, routine, &table->philos[i]) != 0)
+            exit(THREAD_CREATION_FAILURE);
         i++;
     }
-    monitoring_death = pthread_create(&monitoring_death, NULL, check_if_death, (void *) table);
+    if(pthread_create(&monitor_death, NULL, check_if_death, (void *) table) != 0)
+        exit(THREAD_CREATION_FAILURE);
     i = 0;
     while(i < table->philo_nbr)
     {
         pthread_join(&table->philos[i].thread, NULL);
         i++;
     }
+    pthread_join(&monitor_death, NULL);
     return;
 }
 
@@ -66,6 +73,14 @@ void    routine(void *this_philo)
     {
         if (one_philo->number % 2 == 0)
         {
+            pthread_mutex_lock(&one_philo->table->death_mutex);
+            if (one_philo->table->smn_died)
+            {
+                pthread_mutex_unlock(&one_philo->table->death_mutex);
+                return;  // Exit routine properly
+            }
+            pthread_mutex_unlock(&one_philo->table->death_mutex);                       //mk it a function and test it before every action
+
             pthread_mutex_lock(one_philo->r_fork);
             printf("Philosopher %d picked up the right fork.\n", one_philo->number);
             pthread_mutex_lock(one_philo->l_fork);
@@ -81,6 +96,8 @@ void    routine(void *this_philo)
         one_philo->last_meal = current_time();
         printf("Philosopher %d is eating.\n", one_philo->number);
         usleep(one_philo->table->tte * 1000LL); // Simulate eating
+
+        usleep(1000); //necessary ?
 
         pthread_mutex_unlock(one_philo->r_fork);
         pthread_mutex_unlock(one_philo->l_fork);
