@@ -12,7 +12,17 @@
 
 #include "../inc/philo.h"
 
-void    check_if_death(void *the_table)
+int a_philo_is_dead(t_table *table)
+{
+    int state;
+
+    pthread_mutex_lock(&table->death_mutex);
+    state = table->smn_died;
+    pthread_mutex_unlock(&table->death_mutex);
+    return(state);
+}
+
+void    monitor_routine(void *the_table)
 {
     t_table *table;
     long long now;
@@ -21,6 +31,8 @@ void    check_if_death(void *the_table)
     table = (t_table*) the_table;
     while(1)
     {
+        if (a_philo_is_dead(table))
+            return;
         i = 0;
         while(i < table->philo_nbr)
         {
@@ -36,7 +48,7 @@ void    check_if_death(void *the_table)
             pthread_mutex_unlock(&table->death_mutex);
             i++;
         }
-        usleep(1000); // avoid CPU overuse ??
+        usleep(5000); // avoid CPU overuse ??
     }
 }
 
@@ -52,7 +64,7 @@ void    start_dinner(t_table *table)
             exit(THREAD_CREATION_FAILURE);
         i++;
     }
-    if(pthread_create(&monitor_death, NULL, check_if_death, (void *) table) != 0)
+    if(pthread_create(&monitor_death, NULL, monitor_routine, (void *) table) != 0)
         exit(THREAD_CREATION_FAILURE);
     i = 0;
     while(i < table->philo_nbr)
@@ -71,18 +83,17 @@ void    routine(void *this_philo)
     one_philo = (t_philosopher *)this_philo;
     while(1)
     {
+        if (a_philo_is_dead(one_philo->table))
+            return;
         if (one_philo->number % 2 == 0)
         {
-            pthread_mutex_lock(&one_philo->table->death_mutex);
-            if (one_philo->table->smn_died)
-            {
-                pthread_mutex_unlock(&one_philo->table->death_mutex);
-                return;  // Exit routine properly
-            }
-            pthread_mutex_unlock(&one_philo->table->death_mutex);                       //mk it a function and test it before every action
-
             pthread_mutex_lock(one_philo->r_fork);
             printf("Philosopher %d picked up the right fork.\n", one_philo->number);
+            if (a_philo_is_dead(one_philo->table))
+            {
+                pthread_mutex_unlock(one_philo->r_fork);
+                return;
+            }
             pthread_mutex_lock(one_philo->l_fork);
             printf("Philosopher %d picked up the left fork.\n", one_philo->number);
         }
@@ -90,20 +101,37 @@ void    routine(void *this_philo)
         {
             pthread_mutex_lock(one_philo->l_fork);
             printf("Philosopher %d picked up the left fork.\n", one_philo->number);
+            if (a_philo_is_dead(one_philo->table))
+            {
+                pthread_mutex_unlock(one_philo->l_fork);
+                return;
+            }
             pthread_mutex_lock(one_philo->r_fork);
             printf("Philosopher %d picked up the right fork.\n", one_philo->number);
         }
+
+        if (a_philo_is_dead(one_philo->table))
+        {
+            pthread_mutex_unlock(one_philo->r_fork);
+            pthread_mutex_unlock(one_philo->l_fork);
+            return;
+        }
+        pthread_mutex_lock(&one_philo->table->death_mutex);
         one_philo->last_meal = current_time();
+        pthread_mutex_unlock(&one_philo->table->death_mutex);
         printf("Philosopher %d is eating.\n", one_philo->number);
         usleep(one_philo->table->tte * 1000LL); // Simulate eating
 
-        usleep(1000); //necessary ?
-
         pthread_mutex_unlock(one_philo->r_fork);
         pthread_mutex_unlock(one_philo->l_fork);
+
+        if (a_philo_is_dead(one_philo->table))
+            return;
         printf("Philosopher %d put down the forks and is sleeping\n", one_philo->number);
         usleep(one_philo->table->tts * 1000LL);  // Simulate sleeping
         
+        if (a_philo_is_dead(one_philo->table))
+            return;
         printf("Philosopher %d is thinking...\n", one_philo->number);
         usleep(1000);
     }
