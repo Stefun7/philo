@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/02/18 17:57:36 by stephen          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:09:09 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@
 # define DEATH 0
 # define ALIVE 1
 
+typedef struct s_table t_table;
+
+typedef struct s_philosopher
+{
+    int number;
+    long long last_meal;
+    int times_left_to_eat;
+    pthread_t thread;
+    pthread_mutex_t *l_fork;
+    pthread_mutex_t *r_fork;
+    t_table *table;
+}   t_philosopher;
+
 typedef struct s_table
 {
     int philo_nbr;
@@ -37,18 +50,24 @@ typedef struct s_table
     pthread_mutex_t death_mutex;
 }   t_table;
 
-typedef struct s_philosopher
-{
-    int number;
-    long long last_meal;
-    int times_left_to_eat;
-    pthread_t thread;
-    pthread_mutex_t *l_fork;
-    pthread_mutex_t *r_fork;
-    t_table *table;
-}   t_philosopher;
+// philo
+int a_philo_is_dead(t_table *table);
+void    *monitor_routine(void *the_table);
+void    start_dinner(t_table *table);
+void    *routine(void *this_philo);
+
+// main
+void    init_table(int ac, char **av, t_table *table);
+
+// actions
+int even_picks(t_philosopher *one_philo);
+int odd_picks(t_philosopher *one_philo);
+int pick_up_forks(t_philosopher *one_philo);
+int eating(t_philosopher *one_philo);
+int sleeping(t_philosopher *one_philo);
 
 // utils
 long long current_time(void);
+int valid_number(char *number);
 
 #endif
