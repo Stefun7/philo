@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:07 by stephen           #+#    #+#             */
-/*   Updated: 2025/02/18 17:54:25 by stephen          ###   ########.fr       */
+/*   Updated: 2025/03/03 17:30:48 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,18 @@ int main(int ac, char **av)
     int i;
 
     if(ac != 5 && ac != 6)
+    {
+        ft_putchar_fd("Wrong arguments number\n", 1);
         return(1);          //exit message needed ?
+    }
     i = 1;
     while(i < ac)
     {
         if(!valid_number(av[i]))
+        {
+            ft_putchar_fd("Wrong arguments\n", 1);
             return(1);  //exit message needed ?
+        }
         i++;
     }
     init_table(ac, av, &table);
