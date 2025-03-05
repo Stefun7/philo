@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/03 17:32:30 by stephen          ###   ########.fr       */
+/*   Updated: 2025/03/05 18:49:10 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define MALLOC_FAILURE 2
 # define DEATH 0
 # define ALIVE 1
+# define NO 0
+# define YES 1
 
 typedef struct s_table t_table;
 
@@ -31,6 +33,7 @@ typedef struct s_philosopher
     int number;
     long long last_meal;
     int times_left_to_eat;
+    int state;
     pthread_t thread;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
@@ -47,6 +50,9 @@ typedef struct s_table
     int tts;
     int time_must_eat;
     int smn_died;
+    long long start_time;
+    // long long instant_time;
+    // pthread_mutex_t time_mutex;
     pthread_mutex_t death_mutex;
 }   t_table;
 
@@ -55,8 +61,11 @@ int a_philo_is_dead(t_table *table);
 void    *monitor_routine(void *the_table);
 void    start_dinner(t_table *table);
 void    *routine(void *this_philo);
+int starvation(t_philosopher *philo);
 
 // main
+void    init_dinner(int ac, char **av, t_table *table);
+void    init_philos(int ac, t_table *table);
 void    init_table(int ac, char **av, t_table *table);
 
 // actions

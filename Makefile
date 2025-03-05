@@ -18,17 +18,17 @@ all : $(NAME)
 	${CC} ${CFLAGS} -c -o $@ $<
 
 $(LIBFT):
-	@make -C ./libft
+	@make -C ./Libft
 
 $(NAME) : $(OBJS) $(LIBFT)
 	${CC} $(OBJS) ${LIBFT} -o ${NAME}
 
 clean :
 	$(RM) $(OBJS)
-	@make clean -C ./libft
+	@make clean -C ./Libft
 fclean : clean
 	$(RM) $(NAME)
-	@make fclean -C ./libft
+	@make fclean -C ./Libft
 re : fclean all
 
 

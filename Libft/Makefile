@@ -27,8 +27,8 @@ RANLIB = ranlib
 
 RM = rm -f
 
-.c.o : $(SRCS)
-	${CC} ${CFLAGS} -c -o $@ $^
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME) : $(OBJS)
 	$(ARRC) $(NAME) $(OBJS)
