@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/05 18:49:10 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:45:22 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct s_table
     int time_must_eat;
     int smn_died;
     long long start_time;
-    // long long instant_time;
-    // pthread_mutex_t time_mutex;
+    long long instant_time;
+    pthread_mutex_t time_mutex;
     pthread_mutex_t death_mutex;
 }   t_table;
 
@@ -78,5 +78,6 @@ int sleeping(t_philosopher *one_philo);
 // utils
 long long current_time(void);
 int valid_number(char *number);
+long long	my_atoi(const char *str);
 
 #endif

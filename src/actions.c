@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:27:52 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/05 18:45:09 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/06 16:52:26 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int even_picks(t_philosopher *one_philo)
         pthread_mutex_unlock(one_philo->l_fork);
         return(0);
     }
-    printf("Philosopher %d picked up the left fork.\n", one_philo->number);
+    pthread_mutex_lock(&one_philo->table->time_mutex);
+    printf("%lld Philosopher %d picked up the left fork.\n", one_philo->table->instant_time, one_philo->number);
+    pthread_mutex_unlock(&one_philo->table->time_mutex);
     return(1);
 }
 
@@ -40,7 +42,9 @@ int odd_picks(t_philosopher *one_philo)
         pthread_mutex_unlock(one_philo->l_fork);
         return(0);
     }
-    printf("Philosopher %d picked up the left fork.\n", one_philo->number);
+    pthread_mutex_lock(&one_philo->table->time_mutex);
+    printf("%lld Philosopher %d picked up the left fork.\n", one_philo->table->instant_time, one_philo->number);
+    pthread_mutex_unlock(&one_philo->table->time_mutex);
     pthread_mutex_lock(one_philo->r_fork);
     if (a_philo_is_dead(one_philo->table))
     {
@@ -48,7 +52,9 @@ int odd_picks(t_philosopher *one_philo)
         pthread_mutex_unlock(one_philo->r_fork);
         return(0);
     }
-    printf("Philosopher %d picked up the right fork.\n", one_philo->number);
+    pthread_mutex_lock(&one_philo->table->time_mutex);
+    printf("%lld Philosopher %d picked up the right fork.\n", one_philo->table->instant_time, one_philo->number);
+    pthread_mutex_unlock(&one_philo->table->time_mutex);
     return(1);
 }
 
@@ -82,21 +88,27 @@ int eating(t_philosopher *one_philo)
         return(0);
     }
     pthread_mutex_lock(&one_philo->table->death_mutex);
-    one_philo->last_meal = current_time();
+    one_philo->last_meal = current_time() - one_philo->table->start_time;
     pthread_mutex_unlock(&one_philo->table->death_mutex);
-    printf("Philosopher %d is eating.\n", one_philo->number);
+    pthread_mutex_lock(&one_philo->table->time_mutex);
+    printf("%lld Philosopher %d is eating.\n", one_philo->table->instant_time, one_philo->number);
+    pthread_mutex_unlock(&one_philo->table->time_mutex);
     usleep(one_philo->table->tte * 1000LL); // eating time
     pthread_mutex_unlock(one_philo->r_fork);
     pthread_mutex_unlock(one_philo->l_fork);
     if (a_philo_is_dead(one_philo->table))
         return(0);
-    printf("Philosopher %d put down the forks\n", one_philo->number);
+    // pthread_mutex_lock(&one_philo->table->time_mutex);
+    // printf("%lld Philosopher %d put down the forks.\n", one_philo->table->instant_time, one_philo->number);
+    // pthread_mutex_unlock(&one_philo->table->time_mutex);
     return(1);
 }
 
 int sleeping(t_philosopher *one_philo)
 {
-    printf("Philosopher %d is sleeping\n", one_philo->number);
+    pthread_mutex_lock(&one_philo->table->time_mutex);
+    printf("%lld Philosopher %d is sleeping.\n", one_philo->table->instant_time, one_philo->number);
+    pthread_mutex_unlock(&one_philo->table->time_mutex);
         usleep(one_philo->table->tts * 1000LL);  // sleeping time
     return(1);
 }

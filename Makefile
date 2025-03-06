@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -I${INC} -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 LIBFT = ./Libft/libft.a
 
@@ -15,13 +15,13 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 %.o : %.c
-	${CC} ${CFLAGS} -c -o $@ $<
+	${CC} -I${INC} -c -o $@ $<
 
 $(LIBFT):
 	@make -C ./Libft
 
 $(NAME) : $(OBJS) $(LIBFT)
-	${CC} $(OBJS) ${LIBFT} -o ${NAME}
+	${CC} $(OBJS) ${LIBFT} -o ${NAME} ${CFLAGS}
 
 clean :
 	$(RM) $(OBJS)
