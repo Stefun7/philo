@@ -6,18 +6,19 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/07 12:40:02 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:48:32 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
+// maybe have to del every  ** it might be causing the deadlocks, but then it wont be safe when reading ?
+//also, death mutex locked in time mutex of monitor
 int starvation(t_philosopher *philo)
 {
     long long now;
 
     now = current_time() - philo->table->start_time;
-    pthread_mutex_lock(&philo->table->death_mutex);
+    pthread_mutex_lock(&philo->table->death_mutex); // **
     if (now - philo->last_meal > philo->table->ttd)
     {
         printf("Philosopher number %d died at %lld ms\n",philo->number, now);

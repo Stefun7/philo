@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:27:52 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/07 12:43:43 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:32:35 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int    odd_picks(t_philosopher *one_philo)
     pthread_mutex_unlock(&one_philo->table->time_mutex);
     pthread_mutex_lock(one_philo->r_fork);
     pthread_mutex_lock(&one_philo->table->time_mutex);
-    if (a_philo_is_dead(one_philo->table))
+    if (a_philo_is_dead(one_philo->table) || one_philo->table->philo_nbr == 1) //prob is here
     {
+        printf("top\n");
         pthread_mutex_unlock(one_philo->l_fork);
         pthread_mutex_unlock(one_philo->r_fork);
         pthread_mutex_unlock(&one_philo->table->time_mutex);
@@ -65,8 +66,8 @@ int    odd_picks(t_philosopher *one_philo)
 
 int pick_up_forks(t_philosopher *one_philo)
 {
-    if (one_philo->number == 1 && one_philo->times_he_ate == 0)
-        return(first_eat_first(one_philo));
+    if (one_philo->number == 1 && one_philo->times_he_ate == 0) //prob is here
+        return (1);
     if(one_philo->number % 2 == 0)
         return(even_picks(one_philo));
     else
@@ -114,19 +115,8 @@ int sleeping(t_philosopher *one_philo)
     
 }
 
-int    first_eat_first(t_philosopher *first_philo)
-{
-    if (first_philo->times_he_ate == 0)
-    {
-        pthread_mutex_lock(first_philo->l_fork);
-        printf("%lld Philosopher 1 has taken left fork first.\n", first_philo->table->instant_time);
-        pthread_mutex_lock(first_philo->r_fork);
-        printf("%lld Philosopher 1 has taken right fork first.\n", first_philo->table->instant_time);
-        return(1);
-    }
-    else
-        return(0);
-}
+    // printf("top\n");
+
 
 // int even_picks(t_philosopher *one_philo)
 // {
