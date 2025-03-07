@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/06 14:45:22 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/07 11:53:54 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_philosopher
 {
     int number;
     long long last_meal;
-    int times_left_to_eat;
+    long long times_he_ate;
     int state;
     pthread_t thread;
     pthread_mutex_t *l_fork;
@@ -67,6 +67,7 @@ int starvation(t_philosopher *philo);
 void    init_dinner(int ac, char **av, t_table *table);
 void    init_philos(int ac, t_table *table);
 void    init_table(int ac, char **av, t_table *table);
+int    first_eat_first(t_philosopher *first_philo);
 
 // actions
 int even_picks(t_philosopher *one_philo);
