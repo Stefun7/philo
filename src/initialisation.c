@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:33:51 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/07 16:32:22 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/11 18:59:35 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ void    start_dinner(t_table *table)
     table->start_time = current_time();
     table->instant_time = current_time() - table->start_time;
     i = -1;
-    if(!odd_picks(&table->philos[0])) //prob is here
-        return;
+    odd_picks(&table->philos[0]); //prob is here
     while(++i < table->philo_nbr)
     {
         if(pthread_create(&table->philos[i].thread, NULL, routine, &table->philos[i]) != 0)

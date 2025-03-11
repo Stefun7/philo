@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/07 15:52:11 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/11 19:14:29 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,17 @@
 # define NOT_MENTIONNED INT_MIN
 # define THREAD_CREATION_FAILURE INT_MAX
 # define MALLOC_FAILURE 2
+
 # define DEATH 0
 # define ALIVE 1
+
 # define NO 0
 # define YES 1
+
+# define LEFT 0
+# define RIGHT 1
+# define BOTH 2
+# define NONE 3
 
 typedef struct s_table t_table;
 

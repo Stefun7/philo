@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/07 15:48:32 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/11 19:59:22 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void    *monitor_routine(void *the_table)
             }
         }
         pthread_mutex_unlock(&table->time_mutex);
-        usleep(1000); // avoid CPU overuse ??
+        usleep(1000); // avoid CPU overuse ??, make an adaptative one
     }
     return(NULL);
 }
