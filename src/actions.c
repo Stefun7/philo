@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:27:52 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/11 19:53:48 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/12 11:14:32 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ int pick_up_forks(t_philosopher *one_philo)
     if (fork_locked == NONE)
         return(YES);
     else
+    {
+        printf("|||still locked : %d\n|||", fork_locked);
         return(NO);
+    }
 
 }
 
@@ -106,7 +109,10 @@ int eating(t_philosopher *one_philo)
     pthread_mutex_unlock(one_philo->r_fork);
     pthread_mutex_unlock(one_philo->l_fork);
     if (a_philo_is_dead(one_philo->table))
+    {
+        printf("|||philo %d's stops here\n|||", one_philo->number);
         return(0);
+    }
     return(1);
 }
 
@@ -126,7 +132,6 @@ int sleeping(t_philosopher *one_philo)
     
 }
 
-    // printf("top\n");
 
 
 // int even_picks(t_philosopher *one_philo)

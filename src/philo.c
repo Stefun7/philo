@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/11 19:59:22 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/12 11:09:39 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int starvation(t_philosopher *philo)
         philo->table->smn_died = YES;
         philo->state = DEATH; //maybe not necessary
         pthread_mutex_unlock(&philo->table->death_mutex);
-        return(1);
+        return(YES);
     }
     pthread_mutex_unlock(&philo->table->death_mutex);
-    return(0);
+    return(NO);
 }
 
 int a_philo_is_dead(t_table *table)
@@ -38,6 +38,7 @@ int a_philo_is_dead(t_table *table)
     pthread_mutex_lock(&table->death_mutex);
     philos_state = table->smn_died;
     pthread_mutex_unlock(&table->death_mutex);
+    printf("someone died : %d\n", table->smn_died);
     return(philos_state);
 }
 
@@ -74,12 +75,25 @@ void    *routine(void *this_philo)
     while(1)
     {
         if (a_philo_is_dead(one_philo->table))
+        {
+            printf("Philo nmbr %d stopped 1\n", one_philo->number);
             return(NULL);
+        }
         if (!pick_up_forks(one_philo))
+        {
+            printf("Philo nmbr %d stopped 2\n", one_philo->number);
             return(NULL);
+        }
         if (!eating(one_philo))
+        {
+            printf("Philo nmbr %d stopped 3\n", one_philo->number);
             return(NULL);
-        sleeping(one_philo);
+        }
+        if (!sleeping(one_philo))
+        {
+            printf("Philo nmbr %d stopped 4\n", one_philo->number);
+            return(NULL);
+        }
         pthread_mutex_lock(&one_philo->table->time_mutex);
         printf("%lld Philosopher %d is thinking...\n", one_philo->table->instant_time, one_philo->number);
         pthread_mutex_unlock(&one_philo->table->time_mutex);
