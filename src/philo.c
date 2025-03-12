@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/12 11:09:39 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:46:28 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int a_philo_is_dead(t_table *table)
     pthread_mutex_lock(&table->death_mutex);
     philos_state = table->smn_died;
     pthread_mutex_unlock(&table->death_mutex);
-    printf("someone died : %d\n", table->smn_died);
+    // printf("someone died : %d\n", table->smn_died);
     return(philos_state);
 }
 

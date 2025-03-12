@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:27:52 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/12 11:14:32 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:42:06 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int pick_up_forks(t_philosopher *one_philo)
         return(YES);
     else
     {
-        printf("|||still locked : %d\n|||", fork_locked);
+        printf("|||still locked : %d|||\n", fork_locked);
         return(NO);
     }
 
@@ -91,9 +91,6 @@ int pick_up_forks(t_philosopher *one_philo)
 
 int eating(t_philosopher *one_philo)
 {
-    pthread_mutex_lock(&one_philo->table->death_mutex);
-    one_philo->last_meal = current_time() - one_philo->table->start_time;
-    pthread_mutex_unlock(&one_philo->table->death_mutex);
     pthread_mutex_lock(&one_philo->table->time_mutex);
     if (a_philo_is_dead(one_philo->table))
     {
@@ -103,6 +100,9 @@ int eating(t_philosopher *one_philo)
         return (0);
     }
     printf("%lld Philosopher %d is eating.\n", one_philo->table->instant_time, one_philo->number);
+    pthread_mutex_lock(&one_philo->table->death_mutex);
+    one_philo->last_meal = current_time() - one_philo->table->start_time;
+    pthread_mutex_unlock(&one_philo->table->death_mutex);
     pthread_mutex_unlock(&one_philo->table->time_mutex);
     usleep(one_philo->table->tte * 1000LL); // eating time
     one_philo->times_he_ate++;
@@ -110,7 +110,7 @@ int eating(t_philosopher *one_philo)
     pthread_mutex_unlock(one_philo->l_fork);
     if (a_philo_is_dead(one_philo->table))
     {
-        printf("|||philo %d's stops here\n|||", one_philo->number);
+        // printf("|||philo %d's stops here\n|||", one_philo->number);
         return(0);
     }
     return(1);
