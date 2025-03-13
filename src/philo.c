@@ -6,13 +6,12 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/12 15:46:28 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:07:59 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-// maybe have to del every  ** it might be causing the deadlocks, but then it wont be safe when reading ?
-//also, death mutex locked in time mutex of monitor
+
 int starvation(t_philosopher *philo)
 {
     long long now;

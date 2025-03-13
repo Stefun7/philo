@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/11 19:14:29 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:14:49 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ int sleeping(t_philosopher *one_philo);
 long long current_time(void);
 int valid_number(char *number);
 long long	my_atoi(const char *str);
+void	my_usleep(t_table *table, long long time);
 
 #endif

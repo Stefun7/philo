@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/06 14:48:13 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/13 16:31:19 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,29 @@ long long	my_atoi(const char *str)
 		res = LLONG_MIN;
 	return (res);
 }
+
+void	my_usleep(t_table *table, long long time)
+{
+	long long	i;
+
+	i = 0;
+	while(i < time)
+	{
+		pthread_mutex_lock(&table->death_mutex);
+		if(table->smn_died)
+		{
+			pthread_mutex_unlock(&table->death_mutex);
+			return;
+		}
+		pthread_mutex_unlock(&table->death_mutex);
+		usleep(2000);
+		i += 2000;
+	}
+	return;
+}
+
+// my_usleep(one_philo->table , (one_philo->table->tte * 1000LL));
+
+// my_usleep(one_philo->table, (one_philo->table->tts * 1000LL));
+
+// my_usleep(one_philo->table, (one_philo->table->tts * 1000LL));
