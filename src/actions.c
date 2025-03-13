@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:27:52 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/13 16:31:30 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/13 17:17:11 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ int eating(t_philosopher *one_philo)
     one_philo->last_meal = current_time() - one_philo->table->start_time;
     pthread_mutex_unlock(&one_philo->table->death_mutex);
     pthread_mutex_unlock(&one_philo->table->time_mutex);
-    usleep(one_philo->table->tte * 1000LL); // eating time
+    // usleep(one_philo->table->tte * 1000LL); // eating time
+    my_usleep(one_philo->table, (one_philo->table->tte * 1000LL));
     one_philo->times_he_ate++;
     pthread_mutex_unlock(one_philo->r_fork);
     pthread_mutex_unlock(one_philo->l_fork);
@@ -127,7 +128,8 @@ int sleeping(t_philosopher *one_philo)
     }
     printf("%lld Philosopher %d is sleeping.\n", one_philo->table->instant_time, one_philo->number);
     pthread_mutex_unlock(&one_philo->table->time_mutex);
-    usleep(one_philo->table->tts * 1000LL);  // sleeping time
+    // usleep(one_philo->table->tts * 1000LL);  // sleeping time
+    my_usleep(one_philo->table, (one_philo->table->tts * 1000LL));
     // printf(" philo %d state :%d\n",one_philo->number, one_philo->state);
     if (a_philo_is_dead(one_philo->table))
         return(0);

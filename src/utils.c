@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/13 16:31:19 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/13 18:58:46 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,41 @@ long long	my_atoi(const char *str)
 
 void	my_usleep(t_table *table, long long time)
 {
-	long long	i;
+	// usleep(time);
+	long long right_now;
 
-	i = 0;
-	while(i < time)
+	right_now = current_time();
+	// printf("time :%lld\ntime_to_reach : %lld\ntime_to_reach -time : %lld\ncurrent_time : %lld\n", time, to_reach, (to_reach - time), current_time());
+	while((current_time() - right_now) < time)
 	{
 		pthread_mutex_lock(&table->death_mutex);
 		if(table->smn_died)
 		{
+			// printf("----yes----\n");
 			pthread_mutex_unlock(&table->death_mutex);
 			return;
 		}
 		pthread_mutex_unlock(&table->death_mutex);
-		usleep(2000);
-		i += 2000;
+		usleep(150);
 	}
 	return;
 }
+// void	my_usleep(t_table *table, long long time)
+// {
+// 	long long to_reach;
 
-// my_usleep(one_philo->table , (one_philo->table->tte * 1000LL));
-
-// my_usleep(one_philo->table, (one_philo->table->tts * 1000LL));
-
-// my_usleep(one_philo->table, (one_philo->table->tts * 1000LL));
+// 	to_reach = current_time() + time;
+// 	printf("time :%lld\ntime_to_reach : %lld\ntime_to_reach -time : %lld\ncurrent_time : %lld\n", time, to_reach, (to_reach - time), current_time());
+// 	while(current_time() < to_reach)
+// 	{
+// 		pthread_mutex_lock(&table->death_mutex);
+// 		if(table->smn_died)
+// 		{
+// 			pthread_mutex_unlock(&table->death_mutex);
+// 			return;
+// 		}
+// 		pthread_mutex_unlock(&table->death_mutex);
+// 		usleep(100);
+// 	}
+// 	return;
+// }
