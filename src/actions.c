@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:27:52 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/14 13:53:10 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 13:54:40 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int sleeping(t_philosopher *one_philo)
 // int even_picks(t_philosopher *one_philo)
 // {
 //     pthread_mutex_lock(one_philo->r_fork);
-//     if (a_philo_is_dead(one_philo->table))
+//     if (a_philo_is_dead(one_philo->table)
 //     {
 //         pthread_mutex_unlock(one_philo->r_fork);
 //         return(0);

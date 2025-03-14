@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/14 12:46:14 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 13:54:35 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int starvation(t_philosopher *philo)
     long long now;
 
     now = current_time() - philo->table->start_time;
-    pthread_mutex_lock(&philo->table->death_mutex); // **
+    pthread_mutex_lock(&philo->table->death_mutex); //**
     if (now - philo->last_meal > philo->table->ttd)
     {
         printf("Philosopher number %d died at %lld ms\n",philo->number, now);
