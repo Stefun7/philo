@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/13 16:14:49 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 12:45:11 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 #include <limits.h>
+#include <stdatomic.h>
 
 # define NOT_MENTIONNED INT_MIN
 # define THREAD_CREATION_FAILURE INT_MAX
@@ -56,10 +57,9 @@ typedef struct s_table
     int tte;
     int tts;
     int time_must_eat;
-    int smn_died;
-    long long start_time;
-    long long instant_time;
-    pthread_mutex_t time_mutex;
+    _Atomic int smn_died;
+    _Atomic long long start_time;
+    _Atomic long long instant_time;
     pthread_mutex_t death_mutex;
 }   t_table;
 
@@ -87,6 +87,6 @@ int sleeping(t_philosopher *one_philo);
 long long current_time(void);
 int valid_number(char *number);
 long long	my_atoi(const char *str);
-void	my_usleep(t_table *table, long long time);
+void	my_usleep(t_philosopher *one_philo, long long time);
 
 #endif

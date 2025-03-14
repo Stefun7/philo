@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/13 18:58:46 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 13:53:21 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int valid_number(char *number)
     int i;
 
     i = 0;
-    if(my_atoi(number) == LLONG_MIN)
+    if(my_atoi(number) == LLONG_MIN || my_atoi(number) == 0)
     {
         printf("Wrong arg range\n");
         return(0);
@@ -71,43 +71,23 @@ long long	my_atoi(const char *str)
 	return (res);
 }
 
-void	my_usleep(t_table *table, long long time)
+void	my_usleep(t_philosopher *one_philo, long long time)
 {
-	// usleep(time);
-	long long right_now;
+	long long to_reach;
 
-	right_now = current_time();
+	to_reach = one_philo->table->instant_time + time;
+	// printf("to reach : %lld\n", to_reach);
+	// printf("time : %lld\n", time);
+	// printf("inst_time : %lld\n", one_philo->table->instant_time);
+	// exit(1);
 	// printf("time :%lld\ntime_to_reach : %lld\ntime_to_reach -time : %lld\ncurrent_time : %lld\n", time, to_reach, (to_reach - time), current_time());
-	while((current_time() - right_now) < time)
+	while(one_philo->table->instant_time < to_reach)
 	{
-		pthread_mutex_lock(&table->death_mutex);
-		if(table->smn_died)
-		{
-			// printf("----yes----\n");
-			pthread_mutex_unlock(&table->death_mutex);
+		// printf("instant time : %lld\n", one_philo->table->instant_time);
+		if(a_philo_is_dead(one_philo->table))
 			return;
-		}
-		pthread_mutex_unlock(&table->death_mutex);
-		usleep(150);
+		usleep(100);
 	}
+	// printf("to reach : %lld\n", to_reach);
 	return;
 }
-// void	my_usleep(t_table *table, long long time)
-// {
-// 	long long to_reach;
-
-// 	to_reach = current_time() + time;
-// 	printf("time :%lld\ntime_to_reach : %lld\ntime_to_reach -time : %lld\ncurrent_time : %lld\n", time, to_reach, (to_reach - time), current_time());
-// 	while(current_time() < to_reach)
-// 	{
-// 		pthread_mutex_lock(&table->death_mutex);
-// 		if(table->smn_died)
-// 		{
-// 			pthread_mutex_unlock(&table->death_mutex);
-// 			return;
-// 		}
-// 		pthread_mutex_unlock(&table->death_mutex);
-// 		usleep(100);
-// 	}
-// 	return;
-// }

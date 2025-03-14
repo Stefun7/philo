@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:33:51 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/13 15:05:44 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 12:45:44 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void    init_table(int ac, char **av, t_table *table)
         return;
     }
     pthread_mutex_init(&table->death_mutex, NULL);
-    pthread_mutex_init(&table->time_mutex, NULL);
     table->smn_died = NO;
     // printf("philo nbr : %d \nttd : %d \ntte : %d \ntts : %d \n tme : %d\n",
     // table->philo_nbr, table->ttd, table->tte, table->tts, table->time_must_eat);
