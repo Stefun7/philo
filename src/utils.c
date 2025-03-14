@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/14 13:54:28 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 14:01:28 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int valid_number(char *number)
     i = 0;
     if(my_atoi(number) == LLONG_MIN || my_atoi(number) == 0)
     {
-        printf("Wrong arg range\n");
+        printf("Wrong argument range\n");
         return(0);
     }
     while(number[i])
@@ -71,23 +71,17 @@ long long	my_atoi(const char *str)
 	return (res);
 }
 
-void	my_usleep(t_philosopher *one_philo, long long time)
+void	my_usleep(t_table *table, long long time)
 {
 	long long to_reach;
 
-	to_reach = one_philo->table->instant_time + time;
-	// printf("to reach : %lld\n", to_reach);
-	// printf("time : %lld\n", time);
-	// printf("inst_time : %lld\n", one_philo->table->instant_time);
-	// exit(1);
-	// printf("time :%lld\ntime_to_reach : %lld\ntime_to_reach -time : %lld\ncurrent_time : %lld\n", time, to_reach, (to_reach - time), current_time());
-	while(one_philo->table->instant_time < to_reach)
+	
+	to_reach = table->instant_time + time;
+	while(table->instant_time < to_reach)
 	{
-		// printf("instant time : %lld\n", one_philo->table->instant_time);
-		if(a_philo_is_dead(one_philo->table))
+		if(a_philo_is_dead(table))
 			return;
 		usleep(100);
 	}
-	// printf("to reach : %lld\n", to_reach);
 	return;
 }

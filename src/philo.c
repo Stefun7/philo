@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/14 13:54:35 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 16:28:28 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int a_philo_is_dead(t_table *table)
 void    *monitor_routine(void *the_table)
 {
     t_table *table;
+    int everyone_ate;
     int i;
 
+    everyone_ate = NO;
     table = (t_table*) the_table;
     while(1)
     {
@@ -48,7 +50,12 @@ void    *monitor_routine(void *the_table)
         {
             table->instant_time = current_time() - table->start_time;
             if (starvation(&table->philos[i]))
+                return(NULL);
+            if (table->philos[i].times_he_ate == table->time_must_eat)
+                everyone_ate ++;
+            if(everyone_ate == table->philo_nbr)
             {
+                printf("Hope everyone enjoyed their meal :)\nSee you soon !!\n");
                 return(NULL);
             }
         }
@@ -64,27 +71,33 @@ void    *routine(void *this_philo)
     one_philo = (t_philosopher *)this_philo;
     while(1)
     {
+        
         if (a_philo_is_dead(one_philo->table))
         {
-            printf("Philo nmbr %d stopped 1\n", one_philo->number);
+            printf("------------------------Philo nmbr %d stopped 1\n", one_philo->number);
             return(NULL);
         }
         if (!pick_up_forks(one_philo))
         {
-            printf("Philo nmbr %d stopped 2\n", one_philo->number);
+            printf("------------------------Philo nmbr %d stopped 2\n", one_philo->number);
             return(NULL);
         }
         if (!eating(one_philo))
         {
-            printf("Philo nmbr %d stopped 3\n", one_philo->number);
+            printf("------------------------Philo nmbr %d stopped 3\n", one_philo->number);
             return(NULL);
         }
         if (!sleeping(one_philo))
         {
-            printf("Philo nmbr %d stopped 4\n", one_philo->number);
+            printf("------------------------Philo nmbr %d stopped 4\n", one_philo->number);
             return(NULL);
         }
         printf("%lld Philosopher %d is thinking...\n", one_philo->table->instant_time, one_philo->number);
+        if (one_philo->times_he_ate == one_philo->table->time_must_eat)
+        {
+            printf("------------------------Philo nmbr %d stopped 5\n", one_philo->number);
+            return(NULL);
+        }
     }
     return(NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/14 12:45:11 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 16:01:41 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 typedef struct s_table t_table;
 
 typedef struct s_philosopher
-{
+{                                                                                                                                                                                                                                                                                                                                                                                                                   
     int number;
     long long last_meal;
     long long times_he_ate;
@@ -87,6 +87,6 @@ int sleeping(t_philosopher *one_philo);
 long long current_time(void);
 int valid_number(char *number);
 long long	my_atoi(const char *str);
-void	my_usleep(t_philosopher *one_philo, long long time);
+void	my_usleep(t_table *table, long long time);
 
 #endif

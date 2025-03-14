@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:33:51 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/14 13:54:48 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/14 16:53:57 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,13 @@ void    init_dinner(int ac, char **av, t_table *table)
     init_philos(ac, table);
 }
 
+//make thread_fail fct and maybe change start_dinner to return non void 
+
 void    start_dinner(t_table *table)
 {
     int i;
     pthread_t monitor_death;
+    long long error_type;
 
     table->start_time = current_time();
     table->instant_time = current_time() - table->start_time;
@@ -75,12 +78,16 @@ void    start_dinner(t_table *table)
     odd_picks(&table->philos[0]); //prob is here
     while(++i < table->philo_nbr)
     {
-        if(pthread_create(&table->philos[i].thread, NULL, routine, &table->philos[i]) != 0)
-            exit(THREAD_CREATION_FAILURE);
-        table->philos[i].last_meal = 0; //maybe have to put it in philo_routine so they don't start before other philo are created
+        error_type = pthread_create(&table->philos[i].thread, NULL, routine, &table->philos[i]);
+        if (error_type != 0)
+            thread_failure(table, error_type);
+          //  exit(THREAD_CREATION_FAILURE);
+        table->philos[i].last_meal = 0;
     }
-    if(pthread_create(&monitor_death, NULL, monitor_routine, (void *) table) != 0) //see if it should be placed after the philo threads
-        exit(THREAD_CREATION_FAILURE);//can't exit
+    error_type = pthread_create(&monitor_death, NULL, monitor_routine, (void *) table);
+        if (error_type != 0)
+            thread_failure(table, error_type);
+        // exit(THREAD_CREATION_FAILURE);//can't exit
     i = -1;
     while(++i < table->philo_nbr)
         pthread_join(table->philos[i].thread, NULL);//can't exit
