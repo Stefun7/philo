@@ -6,11 +6,13 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:07 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/14 15:20:12 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:19:38 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+//good news : only thing causing a problem is time_must_eat (verify in .h, retrace every occurence of it and meaybe start from the bottom for that only)
 
 int main(int ac, char **av)
 {
@@ -34,6 +36,7 @@ int main(int ac, char **av)
         i++;
     }
     init_dinner(ac, av, &table);
-    start_dinner(&table);
+    if(!start_dinner(&table))
+        return(1);
     return(0);
 }

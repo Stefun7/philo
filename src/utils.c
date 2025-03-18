@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/14 14:01:28 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/17 17:01:22 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,19 @@ void	my_usleep(t_table *table, long long time)
 		usleep(100);
 	}
 	return;
+}
+
+int exit_dinner(t_table *table, int error_type, int threads_created)
+{
+	int i;
+
+	printf("--------------philo_out---------------\n");
+	if (error_type != 0)
+		printf ("Problem trying to create thread. Error type : %d\n", error_type);
+	i = -1;
+	while(++ i < threads_created)
+		pthread_join(table->philos[i].thread, NULL);
+	free(table->forks);
+	free(table->philos);
+	return(0);
 }

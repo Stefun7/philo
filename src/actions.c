@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:27:52 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/14 14:01:08 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:15:35 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int even_picks(t_philosopher *one_philo)
         return (RIGHT);
     }
     printf("%lld Philosopher %d has taken 1st fork.\n", one_philo->table->instant_time, one_philo->number);
-
     pthread_mutex_lock(one_philo->l_fork);
     if (a_philo_is_dead(one_philo->table))
     {
@@ -44,7 +43,6 @@ int odd_picks(t_philosopher *one_philo)
     printf("%lld Philosopher %d has taken 1st fork.\n", one_philo->table->instant_time, one_philo->number);
     if (one_philo->table->philo_nbr == 1)
         return (LEFT);
-
     pthread_mutex_lock(one_philo->r_fork);
     if (a_philo_is_dead(one_philo->table))
     {
@@ -61,22 +59,17 @@ int pick_up_forks(t_philosopher *one_philo)
 {
     int fork_locked;
 
-    if (one_philo->number == 1 && one_philo->times_he_ate == 0)
-        return (YES);
     if (one_philo->table->philo_nbr == 1)
     {
         pthread_mutex_unlock(one_philo->l_fork);
         return (NO);
     }
-
-    if (one_philo->number % 2 == 0)
-        fork_locked = even_picks(one_philo);
-    else
+    if (one_philo->number % 2 == 1)
         fork_locked = odd_picks(one_philo);
-
+    else
+        fork_locked = even_picks(one_philo);
     if (fork_locked != NONE)
         return (NO);
-
     return (YES);
 }
 
@@ -121,73 +114,3 @@ int sleeping(t_philosopher *one_philo)
     
 }
 
-
-
-// int even_picks(t_philosopher *one_philo)
-// {
-//     pthread_mutex_lock(one_philo->r_fork);
-//     if (a_philo_is_dead(one_philo->table)
-//     {
-//         pthread_mutex_unlock(one_philo->r_fork);
-//         return(0);
-//     }
-//     pthread_mutex_lock(&one_philo->table->time_mutex);
-//     printf("%lld Philosopher %d picked up the right fork.\n", one_philo->table->instant_time, one_philo->number);
-//     pthread_mutex_unlock(&one_philo->table->time_mutex);
-//     pthread_mutex_lock(one_philo->l_fork);
-//     if (a_philo_is_dead(one_philo->table))
-//     {
-//         pthread_mutex_unlock(one_philo->r_fork);
-//         pthread_mutex_unlock(one_philo->l_fork);
-//         return(0);
-//     }
-//     pthread_mutex_lock(&one_philo->table->time_mutex);
-//     printf("%lld Philosopher %d picked up the left fork.\n", one_philo->table->instant_time, one_philo->number);
-//     pthread_mutex_unlock(&one_philo->table->time_mutex);
-//     return(1);
-// }
-
-// int odd_picks(t_philosopher *one_philo)
-// {
-//     pthread_mutex_lock(one_philo->l_fork);
-//     if (a_philo_is_dead(one_philo->table))
-//     {
-//         pthread_mutex_unlock(one_philo->l_fork);
-//         return(0);
-//     }
-//     pthread_mutex_lock(&one_philo->table->time_mutex);
-//     printf("%lld Philosopher %d picked up the left fork.\n", one_philo->table->instant_time, one_philo->number);
-//     pthread_mutex_unlock(&one_philo->table->time_mutex);
-//     pthread_mutex_lock(one_philo->r_fork);
-//     if (a_philo_is_dead(one_philo->table))
-//     {
-//         pthread_mutex_unlock(one_philo->l_fork);
-//         pthread_mutex_unlock(one_philo->r_fork);
-//         return(0);
-//     }
-//     pthread_mutex_lock(&one_philo->table->time_mutex);
-//     printf("%lld Philosopher %d picked up the right fork.\n", one_philo->table->instant_time, one_philo->number);
-//     pthread_mutex_unlock(&one_philo->table->time_mutex);
-//     return(1);
-// }
-
-// int pick_up_forks(t_philosopher *one_philo)
-// {
-//     if (one_philo->number % 2 == 0)
-//     {
-//         if(!even_picks(one_philo))
-//             return(0);
-//     }
-//     else
-//     {
-//         if(!odd_picks(one_philo))
-//             return(0);
-//     }
-//     if (a_philo_is_dead(one_philo->table))
-//     {
-//         pthread_mutex_unlock(one_philo->r_fork);
-//         pthread_mutex_unlock(one_philo->l_fork);
-//         return(0);
-//     }
-//     return(1);
-// }

@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/14 16:01:41 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:07:25 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_philosopher
 {                                                                                                                                                                                                                                                                                                                                                                                                                   
     int number;
     long long last_meal;
-    long long times_he_ate;
+    _Atomic long long times_he_ate;
     int state;
     pthread_t thread;
     pthread_mutex_t *l_fork;
@@ -66,7 +66,7 @@ typedef struct s_table
 // philo
 int a_philo_is_dead(t_table *table);
 void    *monitor_routine(void *the_table);
-void    start_dinner(t_table *table);
+int    start_dinner(t_table *table);
 void    *routine(void *this_philo);
 int starvation(t_philosopher *philo);
 
@@ -88,5 +88,6 @@ long long current_time(void);
 int valid_number(char *number);
 long long	my_atoi(const char *str);
 void	my_usleep(t_table *table, long long time);
+int exit_dinner(t_table *table, int error_type, int threads_created);
 
 #endif
