@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:11:11 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/17 18:07:25 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/21 12:49:04 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define DEATH 0
 # define ALIVE 1
+# define FULL INT_MAX
 
 # define NO 0
 # define YES 1
@@ -41,7 +42,7 @@ typedef struct s_philosopher
     int number;
     long long last_meal;
     _Atomic long long times_he_ate;
-    int state;
+    _Atomic int state;
     pthread_t thread;
     pthread_mutex_t *l_fork;
     pthread_mutex_t *r_fork;
@@ -56,7 +57,7 @@ typedef struct s_table
     int ttd;
     int tte;
     int tts;
-    int time_must_eat;
+    long long time_must_eat;
     _Atomic int smn_died;
     _Atomic long long start_time;
     _Atomic long long instant_time;
@@ -64,7 +65,6 @@ typedef struct s_table
 }   t_table;
 
 // philo
-int a_philo_is_dead(t_table *table);
 void    *monitor_routine(void *the_table);
 int    start_dinner(t_table *table);
 void    *routine(void *this_philo);
@@ -86,7 +86,7 @@ int sleeping(t_philosopher *one_philo);
 // utils
 long long current_time(void);
 int valid_number(char *number);
-long long	my_atoi(const char *str);
+long long	my_atoll(const char *str);
 void	my_usleep(t_table *table, long long time);
 int exit_dinner(t_table *table, int error_type, int threads_created);
 

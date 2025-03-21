@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:17:21 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/18 12:06:51 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/21 12:57:18 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,12 @@ int starvation(t_philosopher *philo)
     {
         printf("Philosopher number %d died at %lld ms\n",philo->number, now);
         philo->state = DEATH; //maybe not necessary
-        pthread_mutex_unlock(&philo->table->death_mutex);
         philo->table->smn_died = YES;
+        pthread_mutex_unlock(&philo->table->death_mutex);
         return(YES);
     }
     pthread_mutex_unlock(&philo->table->death_mutex);
     return(NO);
-}
-
-int a_philo_is_dead(t_table *table)
-{
-    return(table->smn_died);
 }
 
 void    *monitor_routine(void *the_table)
@@ -45,21 +40,28 @@ void    *monitor_routine(void *the_table)
     while(1)
     {
         everyone_ate = 0;
-        i = -1;
-        while(++i < table->philo_nbr)
+        i = 0;
+        while(i < table->philo_nbr)
         {
             table->instant_time = current_time() - table->start_time;
-            if (starvation(&table->philos[i]))
-                return(NULL);
-            if (table->philos[i].times_he_ate == table->time_must_eat)
-                everyone_ate ++;
-            if(everyone_ate == table->philo_nbr)
+            if (table->philos[i].state == FULL)
             {
-                printf("Hope everyone enjoyed their meal :)\nSee you soon !!\n");
+            //     // printf("Phlio %d ate |%lld| times\n", table->philos[i].number, table->philos[i].times_he_ate);
+                everyone_ate ++;
+            }
+            if (starvation(&table->philos[i]))
+            {
                 return(NULL);
             }
+            i++;
         }
-        usleep(1000); // avoid CPU overuse ??, make an adaptative one
+        if(everyone_ate == table->philo_nbr)
+        {
+            printf("Hope everyone enjoyed their meal :)\nSee you soon !!\n");
+            table->smn_died = YES;
+            return(NULL);
+        }
+        usleep((table->ttd/table->philo_nbr)/10); // avoid CPU overuse ??, make an adaptative one
     }
     return(NULL);
 }
@@ -73,12 +75,6 @@ void    *routine(void *this_philo)
         usleep(500);
     while(1)
     {
-        
-        if (a_philo_is_dead(one_philo->table))
-        {
-            // printf("------------------------Philo nmbr %d stopped 1\n", one_philo->number);
-            return(NULL);
-        }
         if (!pick_up_forks(one_philo))
         {
             // printf("------------------------Philo nmbr %d stopped 2\n", one_philo->number);
@@ -89,18 +85,23 @@ void    *routine(void *this_philo)
             // printf("------------------------Philo nmbr %d stopped 3\n", one_philo->number);
             return(NULL);
         }
-        if (one_philo->times_he_ate == one_philo->table->time_must_eat)
+        if (one_philo->table->time_must_eat != NOT_MENTIONNED 
+        && one_philo->times_he_ate == one_philo->table->time_must_eat)
         {
-            usleep(10);   //try that for letting time to the monitor to detect it
-            // printf("------------------------Philo nmbr %d stopped 5\n", one_philo->number);
-            return(NULL);
+            one_philo->state = FULL;
         }
         if (!sleeping(one_philo))
         {
             // printf("------------------------Philo nmbr %d stopped 4\n", one_philo->number);
             return(NULL);
         }
-        printf("%lld Philosopher %d is thinking...\n", one_philo->table->instant_time, one_philo->number);
+        if (!one_philo->table->smn_died)
+        {
+            printf("%lld Philosopher %d is thinking...\n", one_philo->table->instant_time, one_philo->number);
+        }
+        else
+            return(NULL);
+        
     }
     return(NULL);
 }

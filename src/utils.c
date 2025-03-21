@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/17 17:01:22 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/21 12:48:51 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int valid_number(char *number)
     int i;
 
     i = 0;
-    if(my_atoi(number) == LLONG_MIN || my_atoi(number) == 0)
+    if(my_atoll(number) == LLONG_MIN || my_atoll(number) == 0)
     {
         printf("Wrong argument range\n");
         return(0);
@@ -43,7 +43,7 @@ int valid_number(char *number)
     return(1);
 }
 
-long long	my_atoi(const char *str)
+long long	my_atoll(const char *str)
 {
 	size_t	i;
 	int		neg;
@@ -79,7 +79,7 @@ void	my_usleep(t_table *table, long long time)
 	to_reach = table->instant_time + time;
 	while(table->instant_time < to_reach)
 	{
-		if(a_philo_is_dead(table))
+		if(table->smn_died)
 			return;
 		usleep(100);
 	}

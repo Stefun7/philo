@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:33:51 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/18 12:02:01 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/21 12:36:09 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void    init_philos(int ac, t_table *table)
     nbr = -1;
     while (++nbr < table->philo_nbr)
     {
-        if(ac == 6)
-            table->philos[nbr].times_he_ate = 0;
+        table->philos[nbr].times_he_ate = 0;
         table->philos[nbr].state = ALIVE;
         table->philos[nbr].number = nbr + 1;
         table->philos[nbr].table = table;
@@ -35,14 +34,14 @@ void    init_philos(int ac, t_table *table)
 
 void    init_table(int ac, char **av, t_table *table)
 {
-    table->philo_nbr = my_atoi(av[1]);
-    table->ttd = my_atoi(av[2]);
-    table->tte = my_atoi(av[3]);
-    table->tts = my_atoi(av[4]);
+    table->philo_nbr = my_atoll(av[1]);
+    table->ttd = my_atoll(av[2]);
+    table->tte = my_atoll(av[3]);
+    table->tts = my_atoll(av[4]);
     if (ac == 6)
-        table->time_must_eat = my_atoi(av[5]);
+        table->time_must_eat = my_atoll(av[5]);
     else
-            table->time_must_eat = NOT_MENTIONNED;
+        table->time_must_eat = NOT_MENTIONNED;
     table->philos = malloc(sizeof(t_philosopher) * table->philo_nbr);
     if (!table->philos)
         return;
@@ -54,7 +53,7 @@ void    init_table(int ac, char **av, t_table *table)
     }
     pthread_mutex_init(&table->death_mutex, NULL);
     table->smn_died = NO;
-    // printf("philo nbr : %d \nttd : %d \ntte : %d \ntts : %d \ntme : %d\n",
+    // printf("philo nbr : %d \nttd : %d \ntte : %d \ntts : %d \ntme : %lld\n",
     // table->philo_nbr, table->ttd, table->tte, table->tts, table->time_must_eat);
 }
 
@@ -84,13 +83,13 @@ int    start_dinner(t_table *table)
     i = 0;
     while(i < table->philo_nbr)
     {
-        printf("Joining Philosopher %d at %p\n", table->philos[i].number, &table->philos[i]);
+        // printf("Joining Philosopher %d at %p\n", table->philos[i].number, &table->philos[i]);
         pthread_join(table->philos[i].thread, NULL);
-        printf("---- Philosopher %d has exited ----\n", table->philos[i].number);
+        // printf("---- Philosopher %d has exited ----\n", table->philos[i].number);
         i++;
     }
     pthread_join(monitor_death, NULL);
-    printf("----monitor routine joind-----\n");
+    // printf("----monitor routine joined-----\n");
     free(table->philos);
     free(table->forks);
     return(1);
