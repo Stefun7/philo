@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 19:00:20 by stephen           #+#    #+#             */
-/*   Updated: 2024/09/16 19:23:17 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_memcpy.c										:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/04/16 19:00:20 by stephen		   #+#	#+#			 */
+/*   Updated: 2024/09/16 19:23:17 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
@@ -34,9 +34,9 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 /*int	main(void)
 {
 	char	str_s[] = "Bonjour";
-    char	str_d[] = "Saljour";
-    char	str_d2[] = "Saljour";
+	char	str_d[] = "Saljour";
+	char	str_d2[] = "Saljour";
 	printf("%s\n", (char *) ft_memcpy(NULL, NULL, 3));
-    printf("%s\n", (char *)memcpy(NULL, NULL, 3));
+	printf("%s\n", (char *)memcpy(NULL, NULL, 3));
 	return (0);
 }*/

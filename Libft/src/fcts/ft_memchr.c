@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 12:55:56 by stephen           #+#    #+#             */
-/*   Updated: 2024/09/16 19:23:21 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_memchr.c										:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/04/22 12:55:56 by stephen		   #+#	#+#			 */
+/*   Updated: 2024/09/16 19:23:21 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
@@ -90,13 +90,13 @@ int		main(int argc, const char *argv[])
 
 		printf("%s", (char *)ft_memchr(tab, -1, 7));
 	}
-       	return (0);
+	   	return (0);
 }
 int	main(void)
 {
 	char	str[] = "Salut les amis !";
-    char c = 'l';
+	char c = 'l';
 	printf("%s\n", (char*) ft_memchr(str, c, 15));
-    printf("%s\n", (char*) memchr(str, c, 15));
+	printf("%s\n", (char*) memchr(str, c, 15));
 	return (0);
 }*/

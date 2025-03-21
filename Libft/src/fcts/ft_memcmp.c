@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 14:35:15 by stephen           #+#    #+#             */
-/*   Updated: 2024/09/16 19:23:20 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_memcmp.c										:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/04/22 14:35:15 by stephen		   #+#	#+#			 */
+/*   Updated: 2024/09/16 19:23:20 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
@@ -32,8 +32,8 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 /*int	main(void)
 {
 	char	s1[] = "Salut mes amis !";
-    char	s2[] = "Salut mes amis !";
+	char	s2[] = "Salut mes amis !";
 	printf("%i\n", ft_memcmp(s1, s2, 17));
-    printf("%i\n", memcmp(s1, s2, 17));
+	printf("%i\n", memcmp(s1, s2, 17));
 	return (0);
 }*/

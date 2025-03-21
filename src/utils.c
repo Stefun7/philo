@@ -5,42 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 11:03:55 by stephen           #+#    #+#             */
-/*   Updated: 2025/03/21 12:48:51 by scesar           ###   ########.fr       */
+/*   Created: 2025/03/21 17:24:53 by scesar            #+#    #+#             */
+/*   Updated: 2025/03/21 18:05:59 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-long long current_time(void)
+long long	current_time(void)
 {
-    struct timeval time;
-    long long sec_since_1970;
-    long long sec_since_last;
+	struct timeval	time;
+	long long		sec_since_1970;
+	long long		sec_since_last;
 
-   gettimeofday(&time, NULL);
-   sec_since_1970 = (long long) (time.tv_sec * 1000LL);
-   sec_since_last = (long long) (time.tv_usec / 1000);
-   return(sec_since_1970 + sec_since_last);
+	gettimeofday(&time, NULL);
+	sec_since_1970 = (long long)(time.tv_sec * 1000LL);
+	sec_since_last = (long long)(time.tv_usec / 1000);
+	return (sec_since_1970 + sec_since_last);
 }
 
-int valid_number(char *number)
+int	valid_number(char *number)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if(my_atoll(number) == LLONG_MIN || my_atoll(number) == 0)
-    {
-        printf("Wrong argument range\n");
-        return(0);
-    }
-    while(number[i])
-    {
-        if (!ft_isdigit(number[i]))
-            return(0);
-        i++;
-    }
-    return(1);
+	i = 0;
+	if (my_atoll(number) == LLONG_MIN || my_atoll(number) == 0)
+	{
+		printf("Wrong argument range\n");
+		return (0);
+	}
+	while (number[i])
+	{
+		if (!ft_isdigit(number[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 long long	my_atoll(const char *str)
@@ -73,30 +73,30 @@ long long	my_atoll(const char *str)
 
 void	my_usleep(t_table *table, long long time)
 {
-	long long to_reach;
+	long long	to_reach;
 
-	
 	to_reach = table->instant_time + time;
-	while(table->instant_time < to_reach)
+	while (table->instant_time < to_reach)
 	{
-		if(table->smn_died)
-			return;
+		if (table->smn_died)
+			return ;
 		usleep(100);
 	}
-	return;
+	return ;
 }
 
-int exit_dinner(t_table *table, int error_type, int threads_created)
+int	exit_dinner(t_table *table, int error_type, int threads_created)
 {
-	int i;
+	int	i;
 
 	printf("--------------philo_out---------------\n");
 	if (error_type != 0)
-		printf ("Problem trying to create thread. Error type : %d\n", error_type);
+		printf ("Problem trying to create thread. Error type : %d\n",
+			error_type);
 	i = -1;
-	while(++ i < threads_created)
+	while (++ i < threads_created)
 		pthread_join(table->philos[i].thread, NULL);
 	free(table->forks);
 	free(table->philos);
-	return(0);
+	return (0);
 }

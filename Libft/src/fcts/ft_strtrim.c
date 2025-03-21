@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 14:14:05 by scesar            #+#    #+#             */
-/*   Updated: 2024/09/16 19:22:25 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_strtrim.c									   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/04/26 14:14:05 by scesar			#+#	#+#			 */
+/*   Updated: 2024/09/16 19:22:25 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
@@ -45,10 +45,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 }
 
 // pas sur de comprendre l'indice mais ça fonctionne
-/*int    main(void)
+/*int	main(void)
 {
 	char	*s1 = "23Tout va123bien412";
 	char	*s2 = "1234";
-    printf("%s", ft_strtrim(s1, s2));
-    return (0);
+	printf("%s", ft_strtrim(s1, s2));
+	return (0);
 }*/

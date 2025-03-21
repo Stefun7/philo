@@ -1,24 +1,24 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 21:04:25 by scesar            #+#    #+#             */
-/*   Updated: 2024/09/16 19:22:46 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_strmapi.c									   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/05/01 21:04:25 by scesar			#+#	#+#			 */
+/*   Updated: 2024/09/16 19:22:46 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
 
 /*char  ft_toupperplus(unsigned int i, char c)
 {
-        i++;
-        i--;
-        if (c >= 97 && c <= 122)
-        return (c - 32);
-    return (c);
+		i++;
+		i--;
+		if (c >= 97 && c <= 122)
+		return (c - 32);
+	return (c);
 }*/
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
@@ -42,7 +42,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 }
 /*int main(void)
 {
-        char const s[15] = "Salut les amis";
-        printf("%s", ft_strmapi(s, &ft_toupperplus));
-        return (0);
+		char const s[15] = "Salut les amis";
+		printf("%s", ft_strmapi(s, &ft_toupperplus));
+		return (0);
 }*/

@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 12:43:43 by scesar            #+#    #+#             */
-/*   Updated: 2024/09/16 19:22:56 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_strjoin.c									   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/04/26 12:43:43 by scesar			#+#	#+#			 */
+/*   Updated: 2024/09/16 19:22:56 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
@@ -49,6 +49,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 /*int	main(void)
 {
-    printf("%s", ft_strjoin("La vie ","est belle"));
-    return (0);
+	printf("%s", ft_strjoin("La vie ","est belle"));
+	return (0);
 }*/

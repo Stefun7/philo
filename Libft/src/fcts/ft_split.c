@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 14:56:08 by stephen           #+#    #+#             */
-/*   Updated: 2024/09/16 19:23:02 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_split.c										 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/04/29 14:56:08 by stephen		   #+#	#+#			 */
+/*   Updated: 2024/09/16 19:23:02 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
@@ -102,14 +102,14 @@ char	**ft_split(char const *s, char c)
 /*int main(void)
 {
 	char const *str = "Salut  les copains  !!  ";
-    char c = ' ';
+	char c = ' ';
 	char	**tab = ft_split(str, c);
-    int i = 0;
-    while (tab[i] != NULL)
-    {
-        printf("%s\n", tab[i]);
-        i++;
-    }
-    printf("%s\n", tab[i]);
+	int i = 0;
+	while (tab[i] != NULL)
+	{
+		printf("%s\n", tab[i]);
+		i++;
+	}
+	printf("%s\n", tab[i]);
 	return (0);
 }*/

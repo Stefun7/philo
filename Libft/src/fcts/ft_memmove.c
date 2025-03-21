@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 00:30:10 by stephen           #+#    #+#             */
-/*   Updated: 2024/09/16 19:23:16 by scesar           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_memmove.c									   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: scesar <scesar@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/04/17 00:30:10 by stephen		   #+#	#+#			 */
+/*   Updated: 2024/09/16 19:23:16 by scesar		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
@@ -42,10 +42,10 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 /*int	main(void)
 {
 	char	str_s[] = "Bonjour";
-    char	str_d[] = "Saljour";
-    char	str_d2[] = "Saljour";
+	char	str_d[] = "Saljour";
+	char	str_d2[] = "Saljour";
 	printf("%s\n", (char *) ft_memmove(NULL, str_s, 3));
-    printf("%s\n", (char *)memmove(NULL, str_s, 3));
+	printf("%s\n", (char *)memmove(NULL, str_s, 3));
 	return (0);
 }
 
