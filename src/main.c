@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:25:14 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/21 17:25:17 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/25 17:44:20 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 	{
 		if (!valid_number(av[i]))
 		{
-			printf("Argument number %d not correct \n", i);
+			printf("Argument number %d is incorrect \n", i);
 			return (1);
 		}
 		i++;

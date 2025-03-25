@@ -6,11 +6,30 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:24:28 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/21 17:37:53 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/25 17:44:50 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+int	everyone_ate(t_table *table)
+{
+	int	i;
+	int	all_who_ate;
+
+	i = 0;
+	all_who_ate = 0;
+	while (i < table->philo_nbr)
+	{
+		if (table->philos[i].state == FULL)
+			all_who_ate++;
+		i ++;
+	}
+	if (all_who_ate == table->philo_nbr)
+		return (YES);
+	else
+		return (NO);
+}
 
 int	starvation(t_philosopher *philo)
 {
@@ -33,30 +52,25 @@ int	starvation(t_philosopher *philo)
 void	*monitor_routine(void *the_table)
 {
 	t_table	*table;
-	int		everyone_ate;
 	int		i;
 
 	table = (t_table *) the_table;
 	while (1)
 	{
-		everyone_ate = 0;
-		i = 0;
-		while (i < table->philo_nbr)
+		i = -1;
+		while (++i < table->philo_nbr)
 		{
 			table->instant_time = current_time() - table->start_time;
-			if (table->philos[i].state == FULL)
-				everyone_ate ++;
 			if (starvation(&table->philos[i]))
 				return (NULL);
-			i++;
 		}
-		if (everyone_ate == table->philo_nbr)
+		if (everyone_ate(table) == YES)
 		{
 			printf("Hope everyone enjoyed their meal :)\nSee you soon !!\n");
 			table->smn_died = YES;
 			return (NULL);
 		}
-		usleep((table->ttd / table->philo_nbr) / 10);
+		usleep(1000);
 	}
 	return (NULL);
 }
@@ -70,6 +84,8 @@ void	*routine(void *this_philo)
 		usleep(500);
 	while (1)
 	{
+		if (one_philo->table->smn_died)
+			return (NULL);
 		if (!pick_up_forks(one_philo))
 			return (NULL);
 		if (!eating(one_philo))

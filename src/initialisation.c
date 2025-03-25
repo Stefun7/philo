@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:25:30 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/21 17:25:33 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/25 14:42:21 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_philos(int ac, t_table *table)
 		table->philos[nbr].number = nbr + 1;
 		table->philos[nbr].table = table;
 		table->philos[nbr].l_fork = &table->forks[nbr];
-		table->philos[nbr].r_fork = &table->forks[(nbr + 1) % table->philo_nbr]; //philo_nbr is for the last philo to get the right r_fork
+		table->philos[nbr].r_fork = &table->forks[(nbr + 1) % table->philo_nbr];
 	}
 }
 

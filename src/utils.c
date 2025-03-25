@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:24:53 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/21 18:05:59 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/25 16:55:50 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	exit_dinner(t_table *table, int error_type, int threads_created)
 {
 	int	i;
 
-	printf("--------------philo_out---------------\n");
 	if (error_type != 0)
 		printf ("Problem trying to create thread. Error type : %d\n",
 			error_type);
