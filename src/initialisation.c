@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:25:30 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/25 14:42:21 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/26 11:48:04 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_dinner(int ac, char **av, t_table *table)
 	init_philos(ac, table);
 }
 
-int	start_dinner(t_table *table)
+void	start_dinner(t_table *table)
 {
 	pthread_t	monitor_death;
 	long long	error_type;
@@ -86,5 +86,5 @@ int	start_dinner(t_table *table)
 	pthread_join(monitor_death, NULL);
 	free(table->philos);
 	free(table->forks);
-	return (1);
+	return ;
 }

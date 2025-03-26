@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:24:42 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/25 17:46:51 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/26 12:42:48 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	eating(t_philosopher *one_philo)
 	{
 		pthread_mutex_unlock(one_philo->l_fork);
 		pthread_mutex_unlock(one_philo->r_fork);
-		return (0);
+		return (NO);
 	}
 	pthread_mutex_lock(&one_philo->table->death_mutex);
 	one_philo->last_meal = current_time() - one_philo->table->start_time;
@@ -106,7 +106,7 @@ int	eating(t_philosopher *one_philo)
 	}
 	if (one_philo->table->smn_died)
 		return (0);
-	return (1);
+	return (YES);
 }
 
 int	sleeping(t_philosopher *one_philo)
@@ -118,8 +118,8 @@ int	sleeping(t_philosopher *one_philo)
 		my_usleep(one_philo->table, (one_philo->table->tts));
 	}
 	else
-		return (0);
-	return (1);
+		return (NO);
+	return (YES);
 }
 
 // int	odd_picks(t_philosopher *one_philo)

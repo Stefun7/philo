@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:24:53 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/25 16:55:50 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/26 12:23:59 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ int	valid_number(char *number)
 	if (my_atoll(number) == LLONG_MIN || my_atoll(number) == 0)
 	{
 		printf("Wrong argument range\n");
-		return (0);
+		return (NO);
 	}
 	while (number[i])
 	{
 		if (!ft_isdigit(number[i]))
-			return (0);
+			return (NO);
 		i++;
 	}
-	return (1);
+	return (YES);
 }
 
 long long	my_atoll(const char *str)
@@ -85,17 +85,17 @@ void	my_usleep(t_table *table, long long time)
 	return ;
 }
 
-int	exit_dinner(t_table *table, int error_type, int threads_created)
-{
-	int	i;
+// int	exit_dinner(t_table *table, int error_type, int threads_created)
+// {
+// 	int	i;
 
-	if (error_type != 0)
-		printf ("Problem trying to create thread. Error type : %d\n",
-			error_type);
-	i = -1;
-	while (++ i < threads_created)
-		pthread_join(table->philos[i].thread, NULL);
-	free(table->forks);
-	free(table->philos);
-	return (0);
-}
+// 	if (error_type != 0)
+// 		printf ("Problem trying to create thread. Error type : %d\n",
+// 			error_type);
+// 	i = -1;
+// 	while (++ i < threads_created)
+// 		pthread_join(table->philos[i].thread, NULL);
+// 	free(table->forks);
+// 	free(table->philos);
+// 	return (0);
+// }

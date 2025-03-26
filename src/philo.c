@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:24:28 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/25 17:44:50 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/26 12:19:23 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	starvation(t_philosopher *philo)
 {
 	long long	now;
 
+	if (philo->state == FULL)
+		return (NO);
 	now = current_time() - philo->table->start_time;
 	pthread_mutex_lock(&philo->table->death_mutex);
 	if (now - philo->last_meal > philo->table->ttd)
@@ -66,7 +68,7 @@ void	*monitor_routine(void *the_table)
 		}
 		if (everyone_ate(table) == YES)
 		{
-			printf("Hope everyone enjoyed their meal :)\nSee you soon !!\n");
+			printf("Everyone enjoyed their meal :)\nSee you soon !!\n");
 			table->smn_died = YES;
 			return (NULL);
 		}
@@ -90,9 +92,6 @@ void	*routine(void *this_philo)
 			return (NULL);
 		if (!eating(one_philo))
 			return (NULL);
-		if (one_philo->table->time_must_eat != NOT_MENTIONNED
-			&& one_philo->times_he_ate == one_philo->table->time_must_eat)
-			one_philo->state = FULL;
 		if (!sleeping(one_philo))
 			return (NULL);
 		if (!one_philo->table->smn_died)

@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:25:14 by scesar            #+#    #+#             */
-/*   Updated: 2025/03/25 17:44:20 by scesar           ###   ########.fr       */
+/*   Updated: 2025/03/26 12:24:11 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 	{
-		printf("Wrong arguments number\n");
+		printf("Wrong number of arguments, they must be 5 or 6!\n");
 		return (1);
 	}
 	i = 1;
@@ -27,13 +27,13 @@ int	main(int ac, char **av)
 	{
 		if (!valid_number(av[i]))
 		{
-			printf("Argument number %d is incorrect \n", i);
+			printf("Argument number %d is incorrect,", i);
+			printf(" it can only be an int < 0\n");
 			return (1);
 		}
 		i++;
 	}
 	init_dinner(ac, av, &table);
-	if (!start_dinner(&table))
-		return (1);
+	start_dinner(&table);
 	return (0);
 }
